@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #8360c3, #2ebf91);
+    color: white;
+}
+
+#chat-container {
+    width: 100%;
+    height: 100vh;
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
+#chat-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+#chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #1f1f1f;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Chat bubbles */
+.message {
+    max-width: 70%;
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 20px;
+    clear: both;
+    word-wrap: break-word;
+}
+
+.message.left {
+    background-color: #444;
+    float: left;
+    text-align: left;
+}
+
+.message.right {
+    background-color: #4CAF50;
+    float: right;
+    text-align: right;
+    color: white;
+}
+
+/* Input section */
+#input-area {
+    display: flex;
+    align-items: center;
+    background: #333;
+    border-radius: 30px;
+    padding: 5px 10px;
+    height: 50px;
+}
+
+#message {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    outline: none;
+}
+
+/* WhatsApp-style send button */
+#send-button {
+    background-color: transparent;
+    border: none;
+    padding: 0 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+#send-button svg {
+    fill: white;
+    width: 28px;
+    height: 28px;
+    transition: transform 0.2s;
+}
+
+#send-button:hover svg {
+    transform: scale(1.1);
+}
+
+
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #8360c3, #2ebf91);  /* Gradient background for a dynamic look */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/* Login Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.login-form {
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background for the form */
+    padding: 40px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Soft shadow for depth */
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;  /* Adds a bit of spacing between letters for a modern feel */
+}
+
+/* Input Fields */
+.input-group {
+    margin-bottom: 20px; /* More space between inputs */
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.2); /* Slight transparent background */
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s; /* Added transition for smoother interaction */
+}
+
+.input-group input:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);  /* Slight scaling effect when focusing */
+}
+
+/* Button Styles */
+.login-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth hover and click transition */
+}
+
+.login-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* Slightly enlarges button when hovered */
+}
+
+/* Adding animation on focus for the form inputs */
+.input-group input:focus {
+    box-shadow: 0 0 10px rgba(72, 193, 96, 0.8);  /* Green glow when input is focused */
+}
+
+

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Room: {{.Room}}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    /* Back arrow at top-left of screen */
+    .back-arrow {
+      position: fixed;
+      top: 10px;
+      left: 530px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: white;
+      z-index: 1000;
+    }
+
+    /* Centered system message (join/leave) */
+    .system-message {
+      text-align: center;
+      background-color: #e0e0e0;
+      color: #333;
+      padding: 6px 14px;
+      border-radius: 18px;
+      font-size: 14px;
+      margin: 10px auto;
+      max-width: 70%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back arrow button -->
+  <button class="back-arrow" onclick="window.location.href='/'">&#8592;</button>
+
+  <div id="chat-container">
+    <h2>Room: {{.Room}}</h2>
+    <div id="chat-box"></div>
+
+    <div id="input-area">
+      <input type="text" id="message" placeholder="Type a message..." autocomplete="off">
+      <button id="send-button" onclick="sendMessage()" title="Send">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="24px" viewBox="0 0 24 24" width="24px">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M2.01 21L23 12 2.01 3v7l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const username = "{{.Username}}";
+    const room = "{{.Room}}";
+
+    const socket = new WebSocket("ws://" + window.location.host + "/ws/" + room);
+    const chatBox = document.getElementById("chat-box");
+
+    // Send system join message
+    socket.onopen = function () {
+      socket.send(JSON.stringify({
+        system: true,
+        message: `${username} joined the chat`
+      }));
+    };
+
+    // Send system leave message before window unloads
+    window.addEventListener("beforeunload", function () {
+      socket.send(JSON.stringify({
+        system: true,
+        message: `${username} left the chat`
+      }));
+    });
+
+    // Handle incoming messages
+    socket.onmessage = function (event) {
+      const msg = JSON.parse(event.data);
+      const div = document.createElement("div");
+
+      if (msg.system) {
+        div.className = "system-message";
+        div.textContent = msg.message;
+      } else {
+        const align = msg.username === username ? "right" : "left";
+        div.className = `message ${align}`;
+        div.innerHTML = `<strong>${msg.username}:</strong> ${msg.message}`;
+      }
+
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    };
+
+    function sendMessage() {
+      const input = document.getElementById("message");
+      const message = input.value.trim();
+      if (message) {
+        socket.send(JSON.stringify({ message }));
+        input.value = "";
+        input.focus();
+      }
+    }
+
+    document.getElementById("message").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+</body>
+</html>
